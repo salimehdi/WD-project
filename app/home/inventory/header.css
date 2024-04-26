@@ -1,0 +1,25 @@
+@tailwind base;
+
+.buttons {
+	@apply my-4 flex justify-between items-center;
+}
+
+button {
+	@apply text-white rounded-xl px-2 py-1 mx-4 font-semibold text-lg transition-colors duration-200;
+}
+
+.ctas button {
+	@apply bg-blue-500;
+}
+
+.ctas button:hover {
+	@apply bg-blue-800;
+}
+
+.barcode-btn {
+	@apply bg-green-500;
+}
+
+.barcode-btn:hover {
+	@apply bg-green-800;
+}
