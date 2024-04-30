@@ -4,7 +4,7 @@ export default function Page() {
     return (
         <div className="w-[100%] h-[100%]">
             <header>
-                <h1 className="text-4xl text-blue-900 opacity-50 font-bold">
+                <h1 className="p-4 text-4xl text-blue-900 opacity-50 font-bold">
                     Inventory
                     <span className="text-xl opacity-50 mx-4">{126} items listed</span>
                 </h1>
@@ -13,7 +13,6 @@ export default function Page() {
                         <button>+ Add new stock</button>
                         <button>+ Add old stock</button>
                     </div>
-                    <button className="barcode-btn">Generate Barcode</button>
                 </div>
                 <table className='w-full h-full bg-blue-100 text-left mx-2 rounded-lg'>
                     <thead>
@@ -37,9 +36,7 @@ export default function Page() {
                             <td>Low</td>
                             <td>1000 ₹</td>
                             <td>1200 ₹</td>
-                            <td>
-                                Menu
-                            </td>
+
                         </tr>
                         <tr>
                             <td>2.</td>
@@ -49,9 +46,7 @@ export default function Page() {
                             <td>Out</td>
                             <td>1000 ₹</td>
                             <td>1200 ₹</td>
-                            <td>
-                                Menu
-                            </td>
+                        
                         </tr>
                     </tbody>
                 </table>
