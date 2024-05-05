@@ -1,5 +1,39 @@
 "use client";
 import React, { useRef } from 'react';
+
+function CartItem({name, price, quantity} : {name: string, price: number, quantity: number}) {
+  return (
+    <div className="item flex items-center p-4 gap-4 w-full">
+      <div className="icon bg-sky-500 w-16 h-16 rounded-md"></div>
+      <div className="details">
+        <p>{name}</p>
+        <p>Qt: {quantity} Packet</p>
+      </div>
+      <div className="side-data ml-auto">
+        <div className="icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </div>
+        <div className="price">
+          <p>{price} ₹</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Page() {
   const videoRef = useRef(null);
 
@@ -55,7 +89,18 @@ export default function Page() {
               <button className='bg-blue-600 text-white p-3 rounded-lg text-xl' >Scan</button>
           </div>
         </div>
-        <div className="h-[94vh] w-full bg-slate-600 md:w-[55%] "></div>
+        <div className="h-[94vh] w-full md:w-[55%] ">
+          <div className="table h-[65%] w-[80%] mx-auto bg-gray-200 rounded-lg">
+            <div className="header mx-4 my-2 flex items-center justify-between px-4 py-2">
+              <h3 className='text-xl'>Cart Items</h3>
+              <a className="text-blue-700 cursor-pointer">See all</a>
+            </div>
+            <div className="item-list">
+              {/* Call from API */}
+              <CartItem name="Tata Salt" price={1200} quantity={10} />
+            </div>
+          </div>
+        </div>
       </div>
     );
 }
