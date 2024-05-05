@@ -67,7 +67,7 @@ const AddNewItemButton: React.FC<AddNewItemButtonProps> = ({ setter }) => {
       ...formData,
       buyingPrice: parseFloat(formData.buyingPrice),
       quantity: parseInt(formData.quantity),
-      maxSellingPrice: parseFloat(formData.maxSellingPrice)
+      maxSellingPrice: parseFloat(formData.maxSellingPrice),
     };
 
     try {

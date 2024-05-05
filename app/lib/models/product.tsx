@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 // Define the product schema
@@ -27,7 +27,7 @@ const productSchema = new Schema({
     type: Number,
     required: true
   },
-  barcode:{
+  barcode: {
     type: Number,
     required: true
   }

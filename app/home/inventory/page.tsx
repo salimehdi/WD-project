@@ -101,7 +101,11 @@ export default function Page() {
 					{
 						items && items.map((item, index) => (
 							<tr
-							onClick={async()=> await navigator.clipboard.writeText(item.barcode.toString())}
+							onClick={async () => {
+								const barcodeString = `${item._id}`; 
+								await navigator.clipboard.writeText(barcodeString);
+							  }}
+							  
 								key={item._id}
 								className="bg-blue-100 border-b hover:bg-blue-50 ">
 								<th scope="row" className="px-10 py-4">

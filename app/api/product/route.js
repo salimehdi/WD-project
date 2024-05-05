@@ -29,23 +29,16 @@ export async function GET(request, content) {
 }
 export async function POST(req, res) {
     // Destructure product data from request body
-    const response = await req.json();
+    let response = await req.json();
+    const barcode = generateRandom15DigitInteger();
     const { productName, brandName, category, buyingPrice, quantity, maxSellingPrice } = response;
-    console.log(response);
+    response.barcode = barcode;
+    console.log({...response});
     try {
       // Connect to MongoDB using Mongoose
       await mongoose.connect(process.env.MONGO_URI);
-      const barcode = generateRandom15DigitInteger()
       // Create a new Product instance
-      const product = new Product({
-        productName,
-        brandName,
-        category,
-        buyingPrice,
-        quantity,
-        maxSellingPrice,
-        barcode
-      });
+      const product = new Product({...response});
   
       // Save the product to the database
       await product.save();
