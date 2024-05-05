@@ -26,10 +26,14 @@ const productSchema = new Schema({
   maxSellingPrice: {
     type: Number,
     required: true
+  },
+  barcode:{
+    type: Number,
+    required: true
   }
 });
 
 // Create the Product model using the productSchema
-const Product = mongoose.model('Product', productSchema);
+const Product = mongoose.models.Product || mongoose.model('Product', productSchema);
 
 module.exports = Product;

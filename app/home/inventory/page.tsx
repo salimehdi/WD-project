@@ -1,11 +1,38 @@
 "use client";
 import AddNewItemButton from '@/app/ui/inventory/AddNewItem';
 import './header.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+interface Item {
+	_id: string;
+	productName: string;
+	brandName: string;
+	quantity: number;
+	buyingPrice: number;
+	maxSellingPrice: number;
+	barcode: number;
+  }
+
 
 export default function Page() {
 
+    const [toAddNewItems , setToAddNewItems] = useState(false);
     const [toAddOldItems , setToAddOldItems] = useState(false);
+
+	const [items, setItems] = useState<Item[]>([])
+
+	useEffect(() => {
+		if(toAddNewItems === false){
+
+			fetch('/api/product')
+				.then(res => res.json())
+				.then(data => {
+					setItems(data.message)
+					console.log(data.message)
+				})
+		}
+
+	}, [toAddNewItems])
 
     return (
         <div className="w-[100%] h-[100%]">
@@ -16,7 +43,9 @@ export default function Page() {
                 </h1>
                 <div className="buttons">
                     <div className="ctas">
-                        <AddNewItemButton />
+                        < AddNewItemButton setter={(e)=>{
+							setToAddNewItems(e)
+						}} />
                         {
                             toAddOldItems 
                             ? (<button style={{backgroundColor:"green"}} onClick={()=>setToAddOldItems(false)}>&#x2713; Done</button>)
@@ -69,41 +98,45 @@ export default function Page() {
 					</tr>
 				</thead>
 				<tbody>
-					<tr
-						className="bg-blue-100 border-b hover:bg-blue-50 ">
-						
-						<th scope="row" className="px-10 py-4">
-							1
-						</th>
-						<td className="px-10 py-4">
-                        Nivia Football
-						</td>
-						<td className="px-10 py-4">
-                        Nivia 
-						</td>
-						<td className="px-10 py-4">
-							5
-						</td>
-						<td className="px-10 py-4">
-							500
-						</td>
-						<td className="px-10 py-4">
-						1500
-						</td>
-						<td className="px-5 py-4 flex gap-3 text-white">
-                            {
-                                toAddOldItems && 
-                                (
-                                <><div className='bg-blue-700 rounded-lg w-5 h-5 flex justify-center items-center'>-</div>
-                            <input type="number" className='w-5 h-5 text-center' value='1'/>
-                            <div className='bg-blue-700 rounded-lg w-5 h-5 flex justify-center items-center'>+</div>
-                            </>)
-                            }
-                            
-						</td>
-						
-					</tr>
-					
+					{
+						items && items.map((item, index) => (
+							<tr
+							onClick={async()=> await navigator.clipboard.writeText(item.barcode.toString())}
+								key={item._id}
+								className="bg-blue-100 border-b hover:bg-blue-50 ">
+								<th scope="row" className="px-10 py-4">
+									{index + 1}
+								</th>
+								<td className="px-10 py-4">
+									{item.productName}
+								</td>
+								<td className="px-10 py-4">
+									{item.brandName}
+								</td>
+								<td className="px-10 py-4">
+									{item.quantity}
+								</td>
+								<td className="px-10 py-4">
+									{item.buyingPrice}
+								</td>
+								<td className="px-10 py-4">
+									{item.maxSellingPrice}
+								</td>
+								<td className="px-5 py-4 flex gap-3 text-white">
+									{
+										toAddOldItems && 
+										(
+										<><div className='bg-blue-700 rounded-lg w-5 h-5 flex justify-center items-center'>-</div>
+									<input type="number" className='w-5 h-5 text-center' value='1'/>
+									<div className='bg-blue-700 rounded-lg w-5 h-5 flex justify-center items-center'>+</div>
+									</>)
+									}
+									
+								</td>
+							</tr>
+						))
+					}
+				
 				</tbody>
 			</table>
 		</div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { set } from 'mongoose';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 
 interface FormData {
@@ -11,7 +12,11 @@ interface FormData {
   maxSellingPrice: string;
 }
 
-const AddNewItemButton: React.FC = () => {
+interface AddNewItemButtonProps {
+  setter: (value: boolean) => void;
+}
+const AddNewItemButton: React.FC<AddNewItemButtonProps> = ({ setter }) => {
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     productName: '',
@@ -24,6 +29,7 @@ const AddNewItemButton: React.FC = () => {
   const [error, setError] = useState<string>('');
 
   const handleAddItemClick = () => {
+    setter(true);
     setIsDialogOpen(true);
   };
 
@@ -66,7 +72,7 @@ const AddNewItemButton: React.FC = () => {
 
     try {
       // Example: Call API endpoint to add new item (replace with your API endpoint)
-      const response = await fetch('https://api.example.com/items', {
+      const response = await fetch('http://localhost:3000/api/product', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -77,6 +83,8 @@ const AddNewItemButton: React.FC = () => {
       if (!response.ok) {
         throw new Error('Failed to add new item.');
       }
+
+      setter(false);
 
       console.log('New Item Added:', newItemData);
 
