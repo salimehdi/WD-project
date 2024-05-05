@@ -1,6 +1,12 @@
+"use client";
+import AddNewItemButton from '@/app/ui/inventory/AddNewItem';
 import './header.css';
+import { useState } from 'react';
 
 export default function Page() {
+
+    const [toAddOldItems , setToAddOldItems] = useState(false);
+
     return (
         <div className="w-[100%] h-[100%]">
             <header>
@@ -10,47 +16,106 @@ export default function Page() {
                 </h1>
                 <div className="buttons">
                     <div className="ctas">
-                        <button>+ Add new stock</button>
-                        <button>+ Add old stock</button>
+                        <AddNewItemButton />
+                        {
+                            toAddOldItems 
+                            ? (<button style={{backgroundColor:"green"}} onClick={()=>setToAddOldItems(false)}>&#x2713; Done</button>)
+
+                           :(<button onClick={()=>setToAddOldItems(true)}>+ Add Old Item</button>)
+                        }
+                        
                     </div>
                 </div>
-                <table className='w-full h-full bg-blue-100 text-left mx-2 rounded-lg'>
-                    <thead>
-                        <tr className='text-blue-900 opacity-60'>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Brand Name</th>
-                            <th>Quantity</th>
-                            <th>Status</th>
-                            <th>Item cost</th>
-                            <th>Estimated price</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1.</td>
-                            <td>Cricket Bat Small Size</td>
-                            <td>MRF bats</td>
-                            <td>87 N</td>
-                            <td>Low</td>
-                            <td>1000 ₹</td>
-                            <td>1200 ₹</td>
+                
 
-                        </tr>
-                        <tr>
-                            <td>2.</td>
-                            <td>Cricket Bat Small Size</td>
-                            <td>MRF bats</td>
-                            <td>87 N</td>
-                            <td>Out</td>
-                            <td>1000 ₹</td>
-                            <td>1200 ₹</td>
+
+
+
+
+
+
+<div className="w-[95%] mx-auto">
+
+	<div className="relative  overflow-x-auto shadow-md sm:rounded-lg">
+		<div className="p-4">
+		
+			</div>
+			<table className="w-full text-sm text-left text-gray-500 ">
+				<thead className="text-xs text-gray-700 uppercase bg-blue-200">
+					<tr>
+					
                         
-                        </tr>
-                    </tbody>
-                </table>
+						<th scope="col" className="px-10 py-3">
+                        #
+						</th>
+						<th scope="col" className="px-10 py-3">
+							Name
+						</th>
+						<th scope="col" className="px-10 py-3">
+							Brand Name
+						</th>
+						<th scope="col" className="px-10 py-3">
+							Quantity
+						</th>
+						<th scope="col" className="px-10 py-3">
+							Buying Cost
+						</th>
+						<th scope="col" className="px-10 py-3">
+							Selling Price
+						</th>
+						<th scope="col" className="px-5 py-3">
+							
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr
+						className="bg-blue-100 border-b hover:bg-blue-50 ">
+						
+						<th scope="row" className="px-10 py-4">
+							1
+						</th>
+						<td className="px-10 py-4">
+                        Nivia Football
+						</td>
+						<td className="px-10 py-4">
+                        Nivia 
+						</td>
+						<td className="px-10 py-4">
+							5
+						</td>
+						<td className="px-10 py-4">
+							500
+						</td>
+						<td className="px-10 py-4">
+						1500
+						</td>
+						<td className="px-5 py-4 flex gap-3 text-white">
+                            {
+                                toAddOldItems && 
+                                (
+                                <><div className='bg-blue-700 rounded-lg w-5 h-5 flex justify-center items-center'>-</div>
+                            <input type="number" className='w-5 h-5 text-center' value='1'/>
+                            <div className='bg-blue-700 rounded-lg w-5 h-5 flex justify-center items-center'>+</div>
+                            </>)
+                            }
+                            
+						</td>
+						
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+
+
+
             </header>
+
+            
         </div>
     );
 }
