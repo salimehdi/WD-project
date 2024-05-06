@@ -28,6 +28,7 @@ export default function Page() {
 				.then(res => res.json())
 				.then(data => {
 					setItems(data.message)
+					console.log("data.message")
 					console.log(data.message)
 				})
 		}
@@ -39,7 +40,7 @@ export default function Page() {
             <header>
                 <h1 className="p-4 text-4xl text-blue-900 opacity-50 font-bold">
                     Inventory
-                    <span className="text-xl opacity-50 mx-4">{126} items listed</span>
+                    <span className="text-xl opacity-50 mx-4">{3} items listed</span>
                 </h1>
                 <div className="buttons">
                     <div className="ctas">
@@ -130,10 +131,10 @@ export default function Page() {
 									{
 										toAddOldItems && 
 										(
-										<><div className='bg-blue-700 rounded-lg w-5 h-5 flex justify-center items-center'>-</div>
-									<input type="number" className='w-5 h-5 text-center' value='1'/>
+										<div className='flex items-center gap-1'><div className='bg-blue-700 rounded-lg w-5 h-5 flex justify-center items-center'>-</div>
+									<input style={{padding:"0"}} type="number" className='w-7 h-7 text-center text-black' />
 									<div className='bg-blue-700 rounded-lg w-5 h-5 flex justify-center items-center'>+</div>
-									</>)
+									</div>)
 									}
 									
 								</td>
