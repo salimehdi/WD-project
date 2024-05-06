@@ -72,8 +72,12 @@ export default function Page() {
       <button className="bg-blue-600 text-white p-3 rounded-lg text-xl">Scan</button>
     </div>
     </div>
-    <div className="h-[94vh] w-full bg-slate-100 md:w-[55%] ">
+    <div className="h-[94vh] w-full bg-slate-100 md:w-[55%] relative ">
       <CartItem name={"Sdvsad"} price={626} quantity={6}/>
+      <CartItem name={"Sdvsad"} price={626} quantity={6}/>
+      <CartItem name={"Sdvsad"} price={626} quantity={6}/>
+      <CartItem name={"Sdvsad"} price={626} quantity={6}/>
+      <div className="fixed bottom-0 w-full bg-white p-4 flex items-center gap-4">Total</div>
     </div>
   </div>
   </>

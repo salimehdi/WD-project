@@ -11,13 +11,13 @@ export default function Page() {
             <div className="absolute top-3 left-3 text-white text-xl bg-opacity-50 rounded-lg flex justify-center items-center">
                 Yesterday's Profit:
             </div>
-            <b>5156 ₹</b>
+            <b>5,196 ₹</b>
         </div>
         <div className=" w-[250px] bg-blue-800 text-cyan-100 rounded-lg h-[120px] relative flex justify-center items-center pt-6 text-5xl">
             <div className="absolute top-3 left-3 text-white text-xl bg-opacity-50 rounded-lg flex justify-center items-center">
                 Today's Profit:
             </div>
-            <b>9456 ₹</b>
+            <b>4,457 ₹</b>
         </div>
     </div>
 

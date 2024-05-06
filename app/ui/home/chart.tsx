@@ -26,7 +26,11 @@ const App = () => {
   const [series] = useState([
     {
       name: "Profit ",
-      data: [0,0,0,0,1,32,6,15,1,6,7,8,9,12,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+      data: [
+          3800, 4200, 4500, 4700, 6200, 6500, 6800, 7000, 7200, 7500, 4800, 7500, 1800, 4200, 3900, 2500, 2800, 5100, 4900, 5200, 5400,1500, 8700, 3200, 3500,
+        1200,
+        5500, 5800, 5196, 4457
+      ],
       // Define gradient color for the area beneath the line
       fill: {
         type: "gradient",
@@ -46,7 +50,7 @@ const App = () => {
         <div className="mixed-chart bg-gray-100 rounded-lg" >
           <div className="text-6xl font-semibold p-10 text-blue-700 relative">
             <div className="absolute text-xl text-cyan-600 top-0 left-0 ml-10 mt-4 text-b rounded-lg">Profit:</div>
-            2562.5 ₹
+            65,625 ₹
           </div>
           <Chart
             options={options}
