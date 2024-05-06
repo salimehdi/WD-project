@@ -37,6 +37,7 @@ function CartItem({name, price, quantity} : {name: string, price: number, quanti
 export default function Page() {
  const videoRef = useRef(null);
  const [scannedBarcode, setScannedBarcode] = useState(null);
+ const [cartItems , setCartItems] = useState([])
 
  const startCamera = async () => {
     try {
@@ -63,20 +64,30 @@ export default function Page() {
       >
         <video ref={videoRef} width="400" height="300" autoPlay playsInline></video>
       </div>
-      {scannedBarcode && (
-        <div className="flex flex-col justify-center items-center w-[80%] h-[130px] rounded-lg bg-blue-100 overflow-hidden pt-8">
-          <p className="absolute text-blue-800 rounded-br-lg bg-blue-300 p-2 text-2xl font-bold top-0 left-0">
+      {scannedBarcode === "6638916b9cd5d131206fd8fd" && (
+        <div className="flex flex-col justify-center items-center w-[80%] h-[130px] rounded-lg bg-blue-100 overflow-hidden pt-8 relative">
+          <p className="absolute text-blue-800 rounded-br-lg bg-blue-300 p-2 text-2xl font-bold top-0 left-0"> SG Cricket Bat
           </p>
+          <div className='text-xl flex justify-center items-center gap-5'>
+            <p>Brand: SG</p>
+            <p>Price: 600</p>
+          </div>
+          <div className='text-xl flex justify-center items-center gap-5'>
+            <p>Quantity: SG</p>
+            <p>Price: 600</p>
+          </div>
         </div>
       )}
-      <button className="bg-blue-600 text-white p-3 rounded-lg text-xl">Scan</button>
+      <input type="text" value={scannedBarcode} onChange={(e)=>{setScannedBarcode(e.target.value)}} />
+      <button onClick={(e)=>{console.log(e.target)}} className="bg-blue-600 text-white p-3 rounded-lg text-xl">{
+        scannedBarcode != "" ? "Add" : "Scan"
+      }</button>
     </div>
     </div>
     <div className="h-[94vh] w-full bg-slate-100 md:w-[55%] relative ">
-      <CartItem name={"Sdvsad"} price={626} quantity={6}/>
-      <CartItem name={"Sdvsad"} price={626} quantity={6}/>
-      <CartItem name={"Sdvsad"} price={626} quantity={6}/>
-      <CartItem name={"Sdvsad"} price={626} quantity={6}/>
+      {
+
+      }
       <div className="fixed bottom-0 w-full bg-white p-4 flex items-center gap-4">Total</div>
     </div>
   </div>
