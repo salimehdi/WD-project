@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     "app/lib/placeholder-data.js",
     "scripts/seed.js"
-  ],
+, "app/home/checkout/page.jsx"  ],
   "exclude": ["node_modules"]
 }

@@ -1,5 +1,7 @@
 "use client";
-import React, { useRef , useState } from 'react';
+import React, { useEffect, useRef , useState } from 'react';
+import Quagga from 'quagga';
+import "./bill.css";
 
 function CartItem({name, price, quantity} : {name: string, price: number, quantity: number}) {
   return (
@@ -35,7 +37,7 @@ function CartItem({name, price, quantity} : {name: string, price: number, quanti
 }
 
 export default function Page() {
- const videoRef = useRef(null);
+ const videoRef = useRef<HTMLVideoElement>(null);
  const [scannedBarcode, setScannedBarcode] = useState(null);
 
  const startCamera = async () => {
@@ -49,6 +51,26 @@ export default function Page() {
       console.error('Error accessing camera:', error);
     }
  };
+
+  useEffect(() => {
+    Quagga.init({
+      inputStream : {
+        name : "Live",
+        type : "LiveStream",
+        target: videoRef.current
+      },
+      decoder : {
+        readers : ["code_128_reader"]
+      }
+    }, function(err:any) {
+        if (err) {
+            console.log(err);
+            return
+        }
+        console.log("Initialization finished. Ready to start");
+        Quagga.start();
+    });
+  }, []);
 
  return (
   <>
@@ -69,15 +91,34 @@ export default function Page() {
           </p>
         </div>
       )}
-      <button className="bg-blue-600 text-white p-3 rounded-lg text-xl">Scan</button>
+      <button className="bg-blue-700 text-white p-3 rounded-lg text-xl">Scan</button>
     </div>
     </div>
-    <div className="h-[94vh] w-full bg-slate-100 md:w-[55%] relative ">
-      <CartItem name={"Sdvsad"} price={626} quantity={6}/>
-      <CartItem name={"Sdvsad"} price={626} quantity={6}/>
-      <CartItem name={"Sdvsad"} price={626} quantity={6}/>
-      <CartItem name={"Sdvsad"} price={626} quantity={6}/>
-      <div className="fixed bottom-0 w-full bg-white p-4 flex items-center gap-4">Total</div>
+    <div className="h-[94vh] w-full bg-slate-100 md:w-[55%] relative flex flex-col">
+      <div className="items overflow-x-auto max-h-[94vh]">
+        <CartItem name={"Sdvsad"} price={626} quantity={6}/>
+        <CartItem name={"Sdvsad"} price={626} quantity={6}/>
+        <CartItem name={"Sdvsad"} price={626} quantity={6}/>
+        <CartItem name={"Sdvsad"} price={626} quantity={6}/>
+        <CartItem name={"Sdvsad"} price={626} quantity={6}/>
+      </div>
+      <div className="checkout text-center mt-auto">
+        <button className="bg-green-500 text-center text-white p-3 rounded-lg text-xl">Checkout</button>
+        <div className="bill w-[80%] mx-auto">
+          <div className="bill-line">
+            <div className="item-name">Total Price:</div>
+            <div className="price">1200 ₹</div>
+          </div>
+          <div className="bill-line">
+            <div className="item-name">Discount:</div>
+            <div className="price"><input type="text" name="" value="50" /> %</div>
+          </div>
+          <div className="bill-line">
+            <div className="item-name">Final Price:</div>
+            <div className="price"><input type="text" name="" value="600" /> ₹</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   </>
