@@ -1,5 +1,7 @@
 "use client";
-import React, { useRef , useState } from 'react';
+import React, { useEffect, useRef , useState } from 'react';
+import Quagga from 'quagga';
+import "./bill.css";
 
 function CartItem({name, price, quantity} : {name: string, price: number, quantity: number}) {
   return (
@@ -35,7 +37,7 @@ function CartItem({name, price, quantity} : {name: string, price: number, quanti
 }
 
 export default function Page() {
- const videoRef = useRef(null);
+ const videoRef = useRef<HTMLVideoElement>(null);
  const [scannedBarcode, setScannedBarcode] = useState(null);
  const [cartItems , setCartItems] = useState([])
 
@@ -50,6 +52,26 @@ export default function Page() {
       console.error('Error accessing camera:', error);
     }
  };
+
+  useEffect(() => {
+    Quagga.init({
+      inputStream : {
+        name : "Live",
+        type : "LiveStream",
+        target: videoRef.current
+      },
+      decoder : {
+        readers : ["code_128_reader"]
+      }
+    }, function(err:any) {
+        if (err) {
+            console.log(err);
+            return
+        }
+        console.log("Initialization finished. Ready to start");
+        Quagga.start();
+    });
+  }, []);
 
  return (
   <>
