@@ -53,7 +53,7 @@ const App = () => {
             65,625 ₹
           </div>
           <Chart
-            options={options}
+            option={options}
             series={series}
             type="area" 
             width="100%"
