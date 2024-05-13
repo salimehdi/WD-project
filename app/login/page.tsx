@@ -44,8 +44,9 @@ export default function Page() {
               Forgot Password?
             </a>
           </div>
-
+        
           <button
+          
             type="submit"
             className="w-full rounded-md bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600"
           >

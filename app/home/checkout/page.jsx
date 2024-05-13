@@ -1,7 +1,8 @@
 "use client";
-import React, { useRef , useState } from 'react';
+import React, { useRef , useState , useEffect } from 'react';
+import "./bill.css";
 
-function CartItem({name, price, quantity} : {name: string, price: number, quantity: number}) {
+function CartItem({name, price, quantity}) {
   return (
     <div className="item flex items-center p-4 gap-4 w-full">
       <div className="icon bg-sky-500 w-16 h-16 rounded-md"></div>
@@ -38,6 +39,8 @@ export default function Page() {
  const videoRef = useRef(null);
  const [scannedBarcode, setScannedBarcode] = useState(null);
  const [cartItems , setCartItems] = useState([])
+const [sum , setSum] = useState(0)
+ 
 
  const startCamera = async () => {
     try {
@@ -50,6 +53,14 @@ export default function Page() {
       console.error('Error accessing camera:', error);
     }
  };
+
+ useEffect(()=>{
+   let sum1 = 0 ;
+  cartItems.map((e)=>{
+    sum1 += e.price ;
+  })
+  setSum(sum1);
+ },[cartItems])
 
  return (
   <>
@@ -64,7 +75,7 @@ export default function Page() {
       >
         <video ref={videoRef} width="400" height="300" autoPlay playsInline></video>
       </div>
-      {scannedBarcode === "6638916b9cd5d131206fd8fd" && (
+      {scannedBarcode === "663891b09cd5d131206fd906" && (
         <div className="flex flex-col justify-center items-center w-[80%] h-[130px] rounded-lg bg-blue-100 overflow-hidden pt-8 relative">
           <p className="absolute text-blue-800 rounded-br-lg bg-blue-300 p-2 text-2xl font-bold top-0 left-0"> SG Cricket Bat
           </p>
@@ -73,23 +84,49 @@ export default function Page() {
             <p>Price: 600</p>
           </div>
           <div className='text-xl flex justify-center items-center gap-5'>
-            <p>Quantity: SG</p>
-            <p>Price: 600</p>
+            <p>Quantity: 5</p>
           </div>
         </div>
       )}
       <input type="text" value={scannedBarcode} onChange={(e)=>{setScannedBarcode(e.target.value)}} />
-      <button onClick={(e)=>{console.log(e.target)}} className="bg-blue-600 text-white p-3 rounded-lg text-xl">{
-        scannedBarcode != "" ? "Add" : "Scan"
-      }</button>
-    </div>
-    </div>
-    <div className="h-[94vh] w-full bg-slate-100 md:w-[55%] relative ">
       {
-
+      scannedBarcode != "" 
+      ? <button 
+      onClick={()=>{
+        setCartItems([...cartItems , {
+          name:"SG Cricket Bat",
+          price:600,
+          quantity:5
+        }])
+      }} 
+      className="bg-blue-600 text-white p-3 rounded-lg text-xl">Add</button>
+      : <button  className="bg-blue-600 text-white p-3 rounded-lg text-xl">Scan</button>
       }
-      <div className="fixed bottom-0 w-full bg-white p-4 flex items-center gap-4">Total</div>
+      
     </div>
+    </div>
+    <div className="h-[94vh] w-full bg-slate-100 md:w-[55%] relative flex flex-col">
+      <div className="items overflow-x-auto max-h-[94vh]">
+      {
+        cartItems.length > 0 && cartItems.map((e)=>(
+          <CartItem setCartItems={(e)=>setCartItems(e)} name={e.name} price={e.price} quantity={e.quantity} />
+        ))
+      }
+      </div>
+      <div className="checkout text-center mt-auto">
+        <button onClick={()=>{
+          setCartItems([])
+          setScannedBarcode()
+        }} className="bg-green-500 text-center text-white p-3 rounded-lg text-xl">Checkout</button>
+        <div className="bill w-[80%] mx-auto ">
+          <div className="bill-line">
+            <div className="item-name">Total Price:</div>
+            <div className="price">{sum} ₹</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
   </div>
   </>
       

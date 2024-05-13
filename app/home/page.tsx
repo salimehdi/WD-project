@@ -59,17 +59,47 @@ export default function Page() {
         <tbody>
           <tr>
             <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
-              Season Ball
+              SG Cricket
             </th>
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
               SG
             </td>
             <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-              34
+              4
             </td>
             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
               <i className="fas fa-arrow-up text-emerald-500 mr-4"></i>
-              560
+              600
+            </td>
+          </tr>
+          <tr>
+            <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
+            Ramp Swimming Earpods
+            </th>
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
+            Ramp
+            </td>
+            <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+            6
+            </td>
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+              <i className="fas fa-arrow-up text-emerald-500 mr-4"></i>
+              900
+            </td>
+          </tr>
+          <tr>
+            <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
+            Great Dumbell
+            </th>
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
+              Great
+            </td>
+            <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+              5
+            </td>
+            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+              <i className="fas fa-arrow-up text-emerald-500 mr-4"></i>
+              900
             </td>
           </tr>
         </tbody>
