@@ -3,46 +3,56 @@ import React, { useEffect, useRef, useState } from 'react';
 import Quagga from 'quagga';
 import "./bill.css";
 
-function CartItem({ name, price, quantity }) {
-  return (
-    <div className="item flex items-center p-4 gap-4 w-full">
-      <div className="icon bg-sky-500 w-16 h-16 rounded-md"></div>
-      <div className="details">
-        <p>{name}</p>
-        <p>Qt: {quantity} Packet</p>
-      </div>
-      <div className="side-data ml-auto">
-        <div className="icon">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </div>
-        <div className="price">
-          <p>{price} ₹</p>
-        </div>
-      </div>
-    </div>
-  );
+interface CartItemProps {
+  name: string;
+  price: number;
+  quantity: number;
 }
 
-export default function Page() {
-  const videoRef = useRef(null);
-  const [scannedBarcode, setScannedBarcode] = useState(null);
-  const [cartItems, setCartItems] = useState([]);
-  const [sum, setSum] = useState(0);
+interface DetectedResult {
+  codeResult: {
+    code: string;
+  };
+}
 
-  const onDetected = (result) => {
+const CartItem: React.FC<CartItemProps> = ({ name, price, quantity }) => (
+  <div className="item flex items-center p-4 gap-4 w-full">
+    <div className="icon bg-sky-500 w-16 h-16 rounded-md"></div>
+    <div className="details">
+      <p>{name}</p>
+      <p>Qt: {quantity} Packet</p>
+    </div>
+    <div className="side-data ml-auto">
+      <div className="icon">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </div>
+      <div className="price">
+        <p>{price} ₹</p>
+      </div>
+    </div>
+  </div>
+);
+
+const Page: React.FC = () => {
+  const videoRef = useRef<any>(null);
+  const [scannedBarcode, setScannedBarcode] = useState<string | null>(null);
+  const [cartItems, setCartItems] = useState<CartItemProps[]>([]);
+  const [sum, setSum] = useState<number>(0);
+
+  const onDetected = (result: DetectedResult) => {
     console.log("Detected barcode:", result.codeResult.code); // Debugging line
     setScannedBarcode(result.codeResult.code);
   };
@@ -59,12 +69,12 @@ export default function Page() {
         inputStream: {
           name: "Live",
           type: "LiveStream",
-          target: videoRef.current // pass the video element here
+          target: videoRef.current 
         },
         decoder: {
           readers: ["code_128_reader"]
         }
-      }, (err) => {
+      }, (err: any) => {
         if (err) {
           console.log(err);
           return;
@@ -160,3 +170,5 @@ export default function Page() {
     </>
   );
 }
+
+export default Page; 
