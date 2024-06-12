@@ -9,13 +9,13 @@ export default function Page() {
     <div className="w-[100%] flex md:flex-row flex-col mt-10 justify-center items-center gap-10">
     <div className=" w-[250px] bg-blue-800 text-cyan-100 rounded-lg h-[120px] relative flex justify-center items-center pt-6 text-5xl">
             <div className="absolute top-3 left-3 text-white text-xl bg-opacity-50 rounded-lg flex justify-center items-center">
-                Yesterday's Profit:
+                Yesterdays Profit:
             </div>
             <b>5,196 ₹</b>
         </div>
         <div className=" w-[250px] bg-blue-800 text-cyan-100 rounded-lg h-[120px] relative flex justify-center items-center pt-6 text-5xl">
             <div className="absolute top-3 left-3 text-white text-xl bg-opacity-50 rounded-lg flex justify-center items-center">
-                Today's Profit:
+                Todays Profit:
             </div>
             <b>4,457 ₹</b>
         </div>
