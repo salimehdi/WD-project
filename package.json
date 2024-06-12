@@ -9,9 +9,11 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
+    "@html-element-wrappers/video": "^0.5.2",
     "@tailwindcss/forms": "^0.5.7",
     "@types/node": "20.5.7",
     "@vercel/postgres": "^0.5.0",
+    "@zxing/library": "^0.21.0",
     "apexcharts": "^3.48.0",
     "autoprefixer": "10.4.15",
     "bcrypt": "^5.1.1",
@@ -30,7 +32,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.1",
-    "@types/react": "18.2.21",
+    "@types/react": "^18.3.3",
     "@types/react-dom": "18.2.14",
     "@vercel/style-guide": "^5.0.1",
     "dotenv": "^16.3.1",
