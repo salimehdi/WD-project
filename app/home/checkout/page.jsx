@@ -1,5 +1,10 @@
 "use client";
+<<<<<<< HEAD:app/home/checkout/page.jsx
 import React, { useRef , useState , useEffect } from 'react';
+=======
+import React, { useEffect, useRef , useState } from 'react';
+import Quagga from 'quagga';
+>>>>>>> 72c95ca7f919bd79b6271dd89635b2213e2ffbb4:app/home/checkout/page.tsx
 import "./bill.css";
 
 function CartItem({name, price, quantity}) {
@@ -36,7 +41,7 @@ function CartItem({name, price, quantity}) {
 }
 
 export default function Page() {
- const videoRef = useRef(null);
+ const videoRef = useRef<HTMLVideoElement>(null);
  const [scannedBarcode, setScannedBarcode] = useState(null);
  const [cartItems , setCartItems] = useState([])
 const [sum , setSum] = useState(0)
@@ -54,6 +59,7 @@ const [sum , setSum] = useState(0)
     }
  };
 
+<<<<<<< HEAD:app/home/checkout/page.jsx
  useEffect(()=>{
    let sum1 = 0 ;
   cartItems.map((e)=>{
@@ -61,6 +67,27 @@ const [sum , setSum] = useState(0)
   })
   setSum(sum1);
  },[cartItems])
+=======
+  useEffect(() => {
+    Quagga.init({
+      inputStream : {
+        name : "Live",
+        type : "LiveStream",
+        target: videoRef.current
+      },
+      decoder : {
+        readers : ["code_128_reader"]
+      }
+    }, function(err:any) {
+        if (err) {
+            console.log(err);
+            return
+        }
+        console.log("Initialization finished. Ready to start");
+        Quagga.start();
+    });
+  }, []);
+>>>>>>> 72c95ca7f919bd79b6271dd89635b2213e2ffbb4:app/home/checkout/page.tsx
 
  return (
   <>
