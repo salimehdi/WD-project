@@ -1,9 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from 'react';
-
-// Quagga is written in js and not in ts, thts y there is no type/module for it
-import Quagga from 'quagga';
 import "./bill.css";
+import { useZxing } from 'react-zxing';
 
 interface CartItemProps {
   name: string;
@@ -11,11 +9,6 @@ interface CartItemProps {
   quantity: number;
 }
 
-interface DetectedResult {
-  codeResult: {
-    code: string;
-  };
-}
 
 const CartItem: React.FC<CartItemProps> = ({ name, price, quantity }) => (
   <div className="item flex items-center p-4 gap-4 w-full">
@@ -50,14 +43,18 @@ const CartItem: React.FC<CartItemProps> = ({ name, price, quantity }) => (
 
 const Page: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [scannedBarcode, setScannedBarcode] = useState<string | null>(null);
   const [cartItems, setCartItems] = useState<CartItemProps[]>([]);
   const [sum, setSum] = useState<number>(0);
+  const [scannedBarcode, setScannedBarcode] = useState<string>('');
+  
+  const { ref } = useZxing({
+    onDecodeResult(scannedBarcode) {
+      console.log('Result:', scannedBarcode.getText());
+      setScannedBarcode(scannedBarcode.getText());
+    },
+  });
 
-  const onDetected = (result: DetectedResult) => {
-    console.log("Detected barcode:", result.codeResult.code); // Debugging line
-    setScannedBarcode(result.codeResult.code);
-  };
+  
 
   const startCamera = async () => {
     try {
@@ -73,38 +70,13 @@ const Page: React.FC = () => {
       }
   
 
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        console.log('Quagga:');
-        Quagga.init({
-          inputStream: {
-            name: "Live",
-            type: "LiveStream",
-            target: videoRef.current // Ensure videoRef.current is not null
-          },
-          decoder: {
-            readers: ["code_128_reader"]
-          }
-        }, (err: any) => {
-          if (err) {
-            console.log('Initialization error:', err);
-            return;
-          }
-          Quagga.start();
-          Quagga.onDetected(onDetected);
-        });
-      } else {
-        console.error('Video element reference is null.');
-      }
+     
   
     } catch (error) {
       console.error('Error accessing camera:', error);
     }
   
-    return () => {
-      Quagga.offDetected(onDetected);
-      Quagga.stop();
-    };
+    
   };
   
 
@@ -127,7 +99,7 @@ const Page: React.FC = () => {
             <div
               className="relative w-[400px] h-[300px] border-black border-4 rounded-2xl overflow-hidden"
             >
-              <video id={"cam"} ref={videoRef} width="400" height="300" autoPlay playsInline></video>
+              <video id={"cam"} ref={ref} width="400" height="300" autoPlay playsInline></video>
             </div>
             {scannedBarcode && (
               <div className="flex flex-col justify-center items-center w-[80%] h-[130px] rounded-lg bg-blue-100 overflow-hidden pt-8 relative">
@@ -170,7 +142,6 @@ const Page: React.FC = () => {
           <div className="checkout text-center mt-auto">
             <button onClick={() => {
               setCartItems([]);
-              setScannedBarcode(null);
             }} className="bg-green-500 text-center text-white p-3 rounded-lg text-xl">Checkout</button>
             <div className="bill w-[80%] mx-auto ">
               <div className="bill-line">
