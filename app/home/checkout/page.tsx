@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useRef, useState } from 'react';
-// Quagga is written in js and not in ts, thts y there is no type/module for it
 import Quagga from 'quagga';
 import "./bill.css";
 
