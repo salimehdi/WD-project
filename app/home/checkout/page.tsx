@@ -49,7 +49,7 @@ const CartItem: React.FC<CartItemProps> = ({ name, price, quantity }) => (
 );
 
 const Page: React.FC = () => {
-  const videoRef = useRef<any>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [scannedBarcode, setScannedBarcode] = useState<string | null>(null);
   const [cartItems, setCartItems] = useState<CartItemProps[]>([]);
   const [sum, setSum] = useState<number>(0);
@@ -114,7 +114,7 @@ const Page: React.FC = () => {
             <div
               className="relative w-[400px] h-[300px] border-black border-4 rounded-2xl overflow-hidden"
             >
-              <video ref={videoRef} width="400" height="300" autoPlay playsInline></video>
+              <video id={"cam"} ref={videoRef} width="400" height="300" autoPlay playsInline></video>
             </div>
             {scannedBarcode && (
               <div className="flex flex-col justify-center items-center w-[80%] h-[130px] rounded-lg bg-blue-100 overflow-hidden pt-8 relative">
