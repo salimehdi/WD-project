@@ -4,7 +4,7 @@ import Chart from '../ui/home/chart'
 export default function Page() {
     return (
         <>
-    <Chart/>
+    {/* <Chart/> */}
 
     <div className="w-[100%] flex md:flex-row flex-col mt-10 justify-center items-center gap-10">
     <div className=" w-[250px] bg-blue-800 text-cyan-100 rounded-lg h-[120px] relative flex justify-center items-center pt-6 text-5xl">

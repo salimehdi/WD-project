@@ -62,38 +62,47 @@ const Page: React.FC = () => {
   const startCamera = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+  
+      if (!stream) {
+        console.error('Failed to get media stream');
+        return;
+      }
+  
 
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
+        console.log('Quagga:');
+        Quagga.init({
+          inputStream: {
+            name: "Live",
+            type: "LiveStream",
+            target: videoRef.current // Ensure videoRef.current is not null
+          },
+          decoder: {
+            readers: ["code_128_reader"]
+          }
+        }, (err: any) => {
+          if (err) {
+            console.log('Initialization error:', err);
+            return;
+          }
+          Quagga.start();
+          Quagga.onDetected(onDetected);
+        });
+      } else {
+        console.error('Video element reference is null.');
       }
-
-      Quagga.init({
-        inputStream: {
-          name: "Live",
-          type: "LiveStream",
-          target: videoRef.current 
-        },
-        decoder: {
-          readers: ["code_128_reader"]
-        }
-      }, (err: any) => {
-        if (err) {
-          console.log(err);
-          return;
-        }
-        Quagga.start();
-        Quagga.onDetected(onDetected);
-      });
-
+  
     } catch (error) {
       console.error('Error accessing camera:', error);
     }
-
+  
     return () => {
       Quagga.offDetected(onDetected);
       Quagga.stop();
     };
   };
+  
 
   useEffect(() => {
     let sum1 = 0;
