@@ -61,7 +61,11 @@ const Page: React.FC = () => {
 
   const startCamera = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: 'environment' // This will try to access the back camera
+        }
+      });
   
       if (!stream) {
         console.error('Failed to get media stream');
