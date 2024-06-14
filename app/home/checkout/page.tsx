@@ -45,7 +45,6 @@ const Page: React.FC = () => {
   const [cartItems, setCartItems] = useState<CartItemProps[]>([]);
   const [sum, setSum] = useState<number>(0);
   const [scannedBarcode, setScannedBarcode] = useState<string>('');
-  const [isMounted, setIsMounted] = useState<Boolean>(false);
 
   
   
@@ -82,9 +81,7 @@ const Page: React.FC = () => {
   };
 
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  
   
 
   useEffect(() => {
@@ -97,9 +94,7 @@ const Page: React.FC = () => {
 
   
 
-  if (!isMounted) {
-    return null;
-  }
+  
 
   return (
     <>
