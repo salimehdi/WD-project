@@ -42,10 +42,12 @@ const CartItem: React.FC<CartItemProps> = ({ name, price, quantity }) => (
 );
 
 const Page: React.FC = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
   const [cartItems, setCartItems] = useState<CartItemProps[]>([]);
   const [sum, setSum] = useState<number>(0);
   const [scannedBarcode, setScannedBarcode] = useState<string>('');
+  const [isMounted, setIsMounted] = useState<Boolean>(false);
+
+  
   
   const { ref } = useZxing({
     onDecodeResult(scannedBarcode) {
@@ -78,6 +80,11 @@ const Page: React.FC = () => {
   
     
   };
+
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   
 
   useEffect(() => {
@@ -87,6 +94,12 @@ const Page: React.FC = () => {
     });
     setSum(sum1);
   }, [cartItems]);
+
+  
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <>
