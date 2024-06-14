@@ -72,7 +72,7 @@ const AddNewItemButton: React.FC<AddNewItemButtonProps> = ({ setter }) => {
 
     try {
       // Example: Call API endpoint to add new item (replace with your API endpoint)
-      const response = await fetch('http://localhost:3000/api/product', {
+      const response = await fetch('/api/product', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
